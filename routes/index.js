@@ -12,7 +12,7 @@ router.get('/get-products', function (req, res, next) {
 	productsRef.once('value', (snapshot) => {
 		res.send({
 			success: true,
-			responseText: 'success',
+			message: 'get products success',
 			responseData: snapshot.val(),
 		});
 		res.end();
@@ -30,7 +30,7 @@ router.post('/post-product', function (req, res, next) {
 		productsRef.once('value', (snapshot) => {
 			res.send({
 				success: true,
-				responseText: 'success',
+				message: 'create product success',
 				responseData: snapshot.val(),
 			});
 			res.end();
@@ -49,7 +49,7 @@ router.put('/update-product/:id', function (req, res, next) {
 			productsRef.once('value', (snapshot) => {
 				res.send({
 					success: true,
-					responseText: 'success',
+					message: 'update success',
 					responseData: snapshot.val(),
 				});
 				res.end();
@@ -67,7 +67,7 @@ router.post('/delete-product', function (req, res, next) {
 			productsRef.once('value', (snapshot) => {
 				res.send({
 					success: true,
-					responseText: 'success',
+					message: 'remove success',
 					responseData: snapshot.val(),
 				});
 				res.end();
@@ -81,8 +81,9 @@ router.post('/upload-file', function (req, res, next) {
 
 	res.send({
 		success: true,
-		responseText: 'img upload success!',
+		message: 'img upload success!',
 	});
+	res.end();
 });
 
 module.exports = router;
