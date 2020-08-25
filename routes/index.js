@@ -13,7 +13,7 @@ router.get('/get-products', function (req, res, next) {
 		res.send({
 			success: true,
 			message: 'get products success',
-			responseData: snapshot.val(),
+			result: snapshot.val(),
 		});
 		res.end();
 	});
@@ -21,24 +21,23 @@ router.get('/get-products', function (req, res, next) {
 
 /* create product */
 router.post('/post-product', function (req, res, next) {
-	const data = req.body;
-	console.log(data);
-	res.send('success');
-	// let data = req.body;
-	// let product = productsRef.push();
-	// let key = product.key;
-	// data.id = key;
+	let data = req.body;
+	let product = productsRef.push();
+	let key = product.key;
 
-	// product.set(data).then(() => {
-	// 	productsRef.once('value', (snapshot) => {
-	// 		res.send({
-	// 			success: true,
-	// 			message: 'create product success',
-	// 			responseData: snapshot.val(),
-	// 		});
-	// 		res.end();
-	// 	});
-	// });
+	data.key = key;
+	data.time = Date.now();
+
+	product.set(data).then(() => {
+		productsRef.once('value', (snapshot) => {
+			res.send({
+				success: true,
+				message: 'create product success',
+				result: snapshot.val(),
+			});
+			res.end();
+		});
+	});
 });
 
 /* update product */
@@ -53,7 +52,7 @@ router.put('/update-product/:id', function (req, res, next) {
 				res.send({
 					success: true,
 					message: 'update success',
-					responseData: snapshot.val(),
+					result: snapshot.val(),
 				});
 				res.end();
 			});
@@ -71,7 +70,7 @@ router.post('/delete-product', function (req, res, next) {
 				res.send({
 					success: true,
 					message: 'remove success',
-					responseData: snapshot.val(),
+					result: snapshot.val(),
 				});
 				res.end();
 			});
