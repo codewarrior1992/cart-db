@@ -21,21 +21,24 @@ router.get('/get-products', function (req, res, next) {
 
 /* create product */
 router.post('/post-product', function (req, res, next) {
-	let data = req.body;
-	let product = productsRef.push();
-	let key = product.key;
-	data.id = key;
+	const data = req.body;
+	console.log(data);
+	res.send('success');
+	// let data = req.body;
+	// let product = productsRef.push();
+	// let key = product.key;
+	// data.id = key;
 
-	product.set(data).then(() => {
-		productsRef.once('value', (snapshot) => {
-			res.send({
-				success: true,
-				message: 'create product success',
-				responseData: snapshot.val(),
-			});
-			res.end();
-		});
-	});
+	// product.set(data).then(() => {
+	// 	productsRef.once('value', (snapshot) => {
+	// 		res.send({
+	// 			success: true,
+	// 			message: 'create product success',
+	// 			responseData: snapshot.val(),
+	// 		});
+	// 		res.end();
+	// 	});
+	// });
 });
 
 /* update product */
