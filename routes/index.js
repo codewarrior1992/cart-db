@@ -21,7 +21,7 @@ router.get('/get-products', function (req, res, next) {
 
 /* create product */
 router.post('/post-product', function (req, res, next) {
-	let data = req.body;
+	let data = req.body.data;
 	let product = productsRef.push();
 	let key = product.key;
 
