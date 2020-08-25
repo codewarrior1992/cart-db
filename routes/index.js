@@ -25,7 +25,7 @@ router.post('/post-product', function (req, res, next) {
 	let product = productsRef.push();
 	let key = product.key;
 
-	data.key = key;
+	data.id = key;
 	data.time = Date.now();
 
 	product.set(data).then(() => {
