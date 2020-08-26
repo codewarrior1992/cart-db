@@ -104,7 +104,7 @@ router.get('/get', function (req, res, next) {
 
 router.post('/post', function (req, res, next) {
 	let data = req.body.data;
-	// let product = rwdProductsRef.push();
+	let product = rwdProductsRef.push();
 	// let key = product.key;
 
 	// data.id = key;
