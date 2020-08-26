@@ -22,6 +22,11 @@ router.get('/get-products', function (req, res, next) {
 /* create product */
 router.post('/post-product', function (req, res, next) {
 	let data = req.body.data;
+	let product = productsRef.push();
+	let key = product.key;
+
+	data.id = key;
+	data.time = Date.now();
 
 	product.set(data).then(() => {
 		productsRef.once('value', (snapshot) => {
@@ -83,8 +88,9 @@ router.post('/upload-file', function (req, res, next) {
 	res.end();
 });
 
-// ########## 響應式設計 ##########//
 const rwdProductsRef = firebaseDb.ref('/rwd-products');
+
+// ##########// 響應式設計 ##########//
 router.get('/get', function (req, res, next) {
 	rwdProductsRef.once('value', (snapshot) => {
 		res.send({
