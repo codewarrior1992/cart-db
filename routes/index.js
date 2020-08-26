@@ -104,11 +104,11 @@ router.get('/get', function (req, res, next) {
 
 router.post('/post', function (req, res, next) {
 	let data = req.body.data;
-	let product = rwdProductsRef.push();
-	let key = product.key;
+	// let product = rwdProductsRef.push();
+	// let key = product.key;
 
-	data.id = key;
-	data.time = Date.now();
+	// data.id = key;
+	// data.time = Date.now();
 
 	product.set(data).then(() => {
 		rwdProductsRef.once('value', (snapshot) => {
