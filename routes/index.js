@@ -58,7 +58,7 @@ router.put('/update-product/:id', function (req, res, next) {
 });
 
 /* delete product */
-router.post('/delete-product', function (req, res, next) {
+router.post('/delete-product/:id', function (req, res, next) {
 	// const id = req.body.id;
 	const id = req.params.id;
 	productsRef
