@@ -111,7 +111,7 @@ router.post('/post', function (req, res, next) {
 	data.time = Date.now();
 
 	product.set(data).then(() => {
-		productsRef.once('value', (snapshot) => {
+		rwdProductsRef.once('value', (snapshot) => {
 			res.send({
 				success: true,
 				message: 'create product success',
