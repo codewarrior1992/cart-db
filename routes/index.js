@@ -88,4 +88,38 @@ router.post('/upload-file', function (req, res, next) {
 	res.end();
 });
 
+const rwdProductsRef = firebaseDb.ref('/rwd-products');
+
+// ##########// 響應式設計 ##########//
+router.get('/get', function (req, res, next) {
+	rwdProductsRef.once('value', (snapshot) => {
+		res.send({
+			success: true,
+			message: 'get products success',
+			result: snapshot.val(),
+		});
+		res.end();
+	});
+});
+
+router.post('/post', function (req, res, next) {
+	let data = req.body.data;
+	let product = rwdProductsRef.push();
+	let key = product.key;
+
+	data.id = key;
+	data.time = Date.now();
+
+	product.set(data).then(() => {
+		productsRef.once('value', (snapshot) => {
+			res.send({
+				success: true,
+				message: 'create product success',
+				result: snapshot.val(),
+			});
+			res.end();
+		});
+	});
+});
+
 module.exports = router;
