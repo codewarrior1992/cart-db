@@ -21,14 +21,14 @@ router.get('/get-products', function (req, res, next) {
 
 /* create product */
 router.post('/post-product', function (req, res, next) {
-	let item = req.body.data;
-	let product = productsRef.push();
-	let key = product.key;
+	let data = req.body.data;
+	// let product = productsRef.push();
+	// let key = product.key;
 
-	data.id = key;
-	data.time = Date.now();
+	// data.id = key;
+	// data.time = Date.now();
 
-	product.set(item).then(() => {
+	product.set(data).then(() => {
 		productsRef.once('value', (snapshot) => {
 			res.send({
 				success: true,
