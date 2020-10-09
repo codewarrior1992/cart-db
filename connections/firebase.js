@@ -9,8 +9,10 @@ var firebaseConfig = {
 	messagingSenderId: process.env.MESSAGINGSENDERID,
 	appId: process.env.APPID,
 };
+
 // Initialize Firebase
 const firebaseInit = firebase.initializeApp(firebaseConfig);
+
 const fireAuth = firebaseInit.auth();
 
 module.exports = fireAuth;

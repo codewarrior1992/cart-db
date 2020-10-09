@@ -3,22 +3,6 @@ var router = express.Router();
 const firebaseDb = require('../connections/firebase-admin');
 const productsRef = firebaseDb.ref('/products');
 
-router.get('/', function (req, res, next) {
-	res.send('hi !');
-});
-
-/* get products */
-router.get('/get-products', function (req, res, next) {
-	productsRef.once('value', (snapshot) => {
-		res.send({
-			success: true,
-			message: 'get products success',
-			result: snapshot.val(),
-		});
-		res.end();
-	});
-});
-
 /* create product */
 router.post('/post-product', function (req, res, next) {
 	let data = req.body.data;
@@ -34,6 +18,30 @@ router.post('/post-product', function (req, res, next) {
 				result: snapshot.val(),
 			});
 			res.end();
+		});
+	});
+});
+
+/* get products */
+router.get('/get-products', function (req, res, next) {
+	productsRef.once('value', (snapshot) => {
+		res.send({
+			success: true,
+			message: 'get products success',
+			result: snapshot.val(),
+		});
+		res.end();
+	});
+});
+
+/* get product */
+router.get('/get-product/:id', function (req, res, next) {
+	let id = req.params.id;
+	productsRef.child(id).once('value', (snapshot) => {
+		res.send({
+			success: true,
+			message: 'get product success',
+			item: snapshot.val(),
 		});
 	});
 });
@@ -59,7 +67,6 @@ router.put('/update-product/:id', function (req, res, next) {
 
 /* delete product */
 router.post('/delete-product/:id', function (req, res, next) {
-	// const id = req.body.id;
 	const id = req.params.id;
 	productsRef
 		.child(id)
@@ -85,40 +92,6 @@ router.post('/upload-file', function (req, res, next) {
 		message: 'img upload success!',
 	});
 	res.end();
-});
-
-const rwdProductsRef = firebaseDb.ref('/rwd-products');
-
-// ##########// 響應式設計 ##########//
-router.get('/get', function (req, res, next) {
-	rwdProductsRef.once('value', (snapshot) => {
-		res.send({
-			success: true,
-			message: 'get products success',
-			result: snapshot.val(),
-		});
-		res.end();
-	});
-});
-
-router.post('/post', function (req, res, next) {
-	let data = req.body.data;
-	let product = rwdProductsRef.push();
-	let key = product.key;
-
-	data.id = key;
-	data.time = Date.now();
-
-	product.set(data).then(() => {
-		rwdProductsRef.once('value', (snapshot) => {
-			res.send({
-				success: true,
-				message: 'create product success',
-				result: snapshot.val(),
-			});
-			res.end();
-		});
-	});
 });
 
 module.exports = router;
